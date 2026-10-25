@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Question ♡</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #f7f4ed;
+      color: #465443;
+      font-family: Georgia, serif;
+      text-align: center;
+    }
+
+    main {
+      width: min(85%, 440px);
+      padding: 32px 20px;
+    }
+
+    h1 { font-size: 2.3rem; }
+    p { line-height: 1.8; }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 12px 0;
+      border: 1px solid #71836a;
+      border-radius: 8px;
+      background: #71836a;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: #465443;
+    }
+
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <section id="welcome">
+      <p>♡ A LITTLE QUESTION FOR YOU ♡</p>
+      <h1>A Special Question</h1>
+      <p>June 8, 2028 · Thursday</p>
+      <p>I have something special to ask you.
+         Before I reveal anything, are you available
+         on my wedding day?</p>
+      <button onclick="show('availability')">Let's find out ♡</button>
+    </section>
+
+    <section id="availability" hidden>
+      <h1>Will you be available?</h1>
+      <p>June 8, 2028</p>
+      <button onclick="show('confirm')">
+        Yes, I'm available!
+      </button>
+      <button class="secondary" onclick="show('decline')">
+        I'm sorry, I can't make it
+      </button>
+    </section>
+
+    <section id="confirm" hidden>
+      <h1>Are you sure? 🥹</h1>
+      <p>Please confirm that you're comfortable
+         committing to the date.</p>
+      <button onclick="show('reveal')">Yes, I confirm! ♡</button>
+      <button class="secondary"
+              onclick="show('availability')">
+        I need to reconsider
+      </button>
+    </section>
+
+    <section id="reveal" hidden>
+      <h1>Surprise! ♡</h1>
+      <p>I've chosen you to be my...</p>
+      <h1>Bridesmaid!</h1>
+      <p>It would mean so much to have you beside me
+         on one of the most important days of my life.</p>
+    </section>
+
+    <section id="decline" hidden>
+      <h1>That's completely okay. 🤍</h1>
+      <p>Thank you for letting me know honestly.
+         There's absolutely no hard feelings.
+         I'm grateful to have you in my life!</p>
+    </section>
+  </main>
+
+  <script>
+    function show(id) {
+      document.querySelectorAll('main > section')
+        .forEach(section => section.hidden = true);
+
+      document.getElementById(id).hidden = false;
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
