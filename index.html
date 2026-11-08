@@ -1,244 +1,740 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A Special Question ♡</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f1e8" />
+  <title>À Mes Côtés</title>
+  <meta name="description" content="A personal note and special detail." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #71836a;
-      --dark: #465443;
-      --cream: #f7f4ed;
+      --ivory: #f7f1e8;
+      --paper: #fffdf8;
+      --terracotta: #b96f59;
+      --terracotta-dark: #955541;
+      --mauve: #b58b9a;
+      --olive: #78815a;
+      --aqua: #91b8b3;
+      --ink: #403b35;
+      --muted: #81786e;
+      --line: #e9dfd2;
+      --shadow: 0 24px 70px rgba(76, 58, 43, .10);
     }
 
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
+      padding: 28px 16px;
       display: grid;
       place-items: center;
-      padding: 20px;
-      background: var(--cream);
-      color: var(--dark);
-      font-family: Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 12%, rgba(181,139,154,.14), transparent 28%),
+        radial-gradient(circle at 90% 88%, rgba(145,184,179,.18), transparent 30%),
+        var(--ivory);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    .page { width: min(100%, 720px); }
+    .topline {
       text-align: center;
+      margin: 0 0 18px;
+      color: var(--olive);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
     }
-
-    main {
-      width: min(100%, 460px);
-      padding: 32px 24px;
-      background: rgba(255,255,255,.65);
-      border: 1px solid #e5e2d7;
-      border-radius: 18px;
-      box-shadow: 0 12px 40px #4654430d;
+    .card {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,253,248,.96);
+      border: 1px solid rgba(185,111,89,.18);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 6vw, 58px);
     }
-
-    .flower { font-size: 2rem; }
-    .eyebrow { letter-spacing: 3px; font-size: .7rem; }
-    h1 { font-size: 2.15rem; font-weight: normal; }
-    p { line-height: 1.8; }
-
-    button {
+    .card::before, .card::after {
+      content: "";
+      position: absolute;
+      width: 155px;
+      height: 155px;
+      border: 1px solid rgba(181,139,154,.24);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .card::before { top: -112px; left: -80px; }
+    .card::after { bottom: -118px; right: -85px; }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--terracotta-dark);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+    h1, h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.16;
+      margin: 0;
+    }
+    h1 { font-size: clamp(2.25rem, 7vw, 3.65rem); }
+    h2 { font-size: clamp(1.8rem, 5vw, 2.55rem); }
+    .date {
+      text-align: center;
+      color: var(--olive);
+      margin: 15px 0 0;
+      letter-spacing: .16em;
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 25px 0;
+      color: var(--mauve);
+    }
+    .ornament::before, .ornament::after {
+      content: "";
+      width: 54px;
+      height: 1px;
+      background: var(--line);
+    }
+    .ornament span { font-size: 1rem; }
+    .intro {
+      max-width: 510px;
+      margin: 0 auto 26px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: .97rem;
+    }
+    .field-label {
       display: block;
+      margin: 25px 0 9px;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    input {
       width: 100%;
-      padding: 15px;
-      margin-top: 13px;
-      border: 1px solid var(--green);
-      border-radius: 9px;
-      background: var(--green);
-      color: white;
+      padding: 16px 17px;
+      border: 1px solid #d9cdbf;
+      border-radius: 12px;
+      outline: none;
+      background: #fffefa;
+      color: var(--ink);
       font: inherit;
       font-size: 1rem;
+      transition: border .2s, box-shadow .2s;
+    }
+    input:focus {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 4px rgba(185,111,89,.12);
+    }
+    .hint {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.6;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 27px;
+    }
+    button {
+      min-width: 155px;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 23px;
+      font: inherit;
+      font-size: .9rem;
+      font-weight: 700;
       cursor: pointer;
+      transition: transform .18s, background .18s, opacity .18s;
     }
-
-    button.secondary {
-      color: var(--dark);
+    button:hover:not(:disabled) { transform: translateY(-2px); }
+    button:disabled { opacity: .55; cursor: wait; }
+    .primary { color: white; background: var(--terracotta); }
+    .primary:hover:not(:disabled) { background: var(--terracotta-dark); }
+    .secondary {
+      color: var(--ink);
       background: transparent;
+      border: 1px solid #d9cdbf;
     }
+    .secondary:hover:not(:disabled) { background: #f5eee5; }
+    .message {
+      min-height: 20px;
+      margin: 15px 0 0;
+      color: var(--terracotta-dark);
+      text-align: center;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    .message:empty { display: none; }
+    .role-pill {
+      display: table;
+      margin: 18px auto 0;
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #596344;
+      background: rgba(120,129,90,.13);
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .letter {
+      max-width: 540px;
+      margin: 27px auto 0;
+      color: #5d554c;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.08rem;
+      line-height: 1.9;
+      white-space: pre-line;
+      text-align: left;
+    }
+    .letter p { margin: 0 0 1.05em; }
+    .details {
+      display: grid;
+      gap: 12px;
+      max-width: 530px;
+      margin: 25px auto 0;
+    }
+    .detail {
+      padding: 17px 19px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fffefa;
+    }
+    .detail strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--terracotta-dark);
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .detail p {
+      margin: 0;
+      color: #625a51;
+      line-height: 1.65;
+      font-size: .91rem;
+    }
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 9px;
+      margin: 20px 0 8px;
+    }
+    .swatch { text-align: center; min-width: 0; }
+    .swatch-color {
+      height: 58px;
+      border-radius: 12px;
+      border: 1px solid rgba(64,59,53,.09);
+      margin-bottom: 7px;
+    }
+    .swatch small {
+      display: block;
+      color: var(--muted);
+      font-size: .67rem;
+      line-height: 1.35;
+    }
+    .footer {
+      text-align: center;
+      margin: 18px 0 0;
+      color: #93897d;
+      font-size: .72rem;
+      letter-spacing: .08em;
+    }
+    .hidden { display: none !important; }
+    .loading {
+      text-align: center;
+      padding: 30px 0;
+      color: var(--muted);
+    }
+    .spinner {
+      width: 27px;
+      height: 27px;
+      margin: 0 auto 13px;
+      border: 2px solid #eadfd3;
+      border-top-color: var(--terracotta);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    button:disabled { opacity: .6; cursor: wait; }
-    .message { min-height: 24px; font-size: .9rem; }
-    [hidden] { display: none !important; }
+    @media (max-width: 480px) {
+      body { padding: 15px 11px; }
+      .card { border-radius: 20px; padding: 32px 21px; }
+      .palette { gap: 5px; }
+      .swatch-color { height: 47px; border-radius: 9px; }
+      .swatch small { font-size: .59rem; }
+      button { width: 100%; }
+      .actions { gap: 9px; }
+    }
   </style>
 </head>
 <body>
-<main>
-  <div class="flower">✿</div>
-  <p class="eyebrow">A LITTLE QUESTION FOR YOU</p>
+  <main class="page">
+    <p class="topline">A celebration of love</p>
 
-  <section id="loading">
-    <h1>One moment ♡</h1>
-    <p>Preparing your personal invitation...</p>
-  </section>
+    <section class="card">
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Preparing your invitation…</p>
+      </div>
 
-  <section id="welcome" hidden>
-    <h1>A Special Question</h1>
-    <p id="greeting"></p>
-    <p>June 8, 2028 · Thursday</p>
-    <p>There's something special I'd love to ask you.</p>
-    <button id="start">Let's find out ♡</button>
-  </section>
+      <div id="content" class="hidden">
+        <p class="eyebrow" id="eyebrow">A personal invitation</p>
+        <h1 id="heading">A little something for you</h1>
+        <p class="date">June 8, 2028</p>
+        <div class="ornament"><span>✦</span></div>
 
-  <section id="availability" hidden>
-    <h1>Will you be available?</h1>
-    <p>Can you join me on June 8, 2028?</p>
-    <p>Please answer honestly. ♡</p>
-    <button id="yes">Yes, I'm available!</button>
-    <button id="no" class="secondary">
-      I'm sorry, I can't make it
-    </button>
-  </section>
+        <p id="intro" class="intro"></p>
+        <div id="stage-content"></div>
+        <p id="feedback" class="message" role="status" aria-live="polite"></p>
+      </div>
+    </section>
 
-  <section id="confirm" hidden>
-    <h1>Are you sure? 🥹</h1>
-    <p>Please make sure you're comfortable committing
-       to the date before confirming.</p>
-    <button id="confirmYes">Yes, I confirm! ♡</button>
-    <button id="reconsider" class="secondary">
-      I need to reconsider
-    </button>
-    <button id="decline" class="secondary">
-      I can't commit after all
-    </button>
-  </section>
+    <p class="footer">WITH LOVE &amp; WARMEST WISHES</p>
+  </main>
 
-  <section id="reveal" hidden>
-    <h1>Surprise! ♡</h1>
-    <p>I've chosen you to be my</p>
-    <h1 id="role"></h1>
-    <p>It would mean so much to have you beside me
-       on one of the most important days of my life.</p>
-    <p>More details will follow. Thank you for being
-       part of my story! ♡</p>
-  </section>
+  <script>
+    // ==========================================
+    // SUPABASE CONFIGURATION
+    // ==========================================
 
-  <section id="declined" hidden>
-    <h1>That's completely okay 🤍</h1>
-    <p>Thank you for letting me know honestly.
-       There's absolutely no hard feelings.
-       I'm grateful to have you in my life!</p>
-  </section>
+    const PROJECT_URL = "https://zvwtvoszhgksamtuzybv.supabase.co";
+    const PUBLISHABLE_KEY = "sb_publishable_txvlbTTTJk5VNsIWFcCIhQ_tpbui3AM";
+    const FUNCTION_URL = `${PROJECT_URL}/functions/v1/wedding-invite`;
 
-  <section id="error" hidden>
-    <h1>Oops! ♡</h1>
-    <p id="errorText">We couldn't load your invitation.</p>
-    <button id="retry" class="secondary">Try again</button>
-  </section>
+    const token = new URLSearchParams(window.location.search).get("token");
 
-  <p id="message" class="message" role="status"></p>
-</main>
+    // ==========================================
+    // PAGE ELEMENTS
+    // ==========================================
 
-<script>
-  // Replace these with your Supabase project values.
+    const loadingEl = document.getElementById("loading");
+    const contentEl = document.getElementById("content");
+    const eyebrowEl = document.getElementById("eyebrow");
+    const headingEl = document.getElementById("heading");
+    const introEl = document.getElementById("intro");
+    const stageContentEl = document.getElementById("stage-content");
+    const feedbackEl = document.getElementById("feedback");
 
-  const PROJECT_URL = "https://zvwtvoszhgksamtuzybv.supabase.co";
-  const PUBLISHABLE_KEY = "sb_publishable_txvlbTTTJk5VNsIWFcCIhQ_tpbui3AM";
+    let invitation = null;
+    let busy = false;
 
-  const API = `${PROJECT_URL}/functions/v1/wedding-invite`;
-  const token = new URLSearchParams(location.search).get("token");
+    const roleLabels = {
+      maid_of_honor: "Maid of Honor",
+      bridesmaid: "Bridesmaid",
+      best_man: "Best Man",
+      groomsmen: "Groomsman"
+    };
 
-  const sections = [
-    "loading", "welcome", "availability", "confirm",
-    "reveal", "declined", "error"
-  ];
+    // ==========================================
+    // API
+    // ==========================================
 
-  let currentStatus = null;
-  let busy = false;
-
-  function show(id) {
-    sections.forEach(name => {
-      document.getElementById(name).hidden = name !== id;
-    });
-    document.getElementById("message").textContent = "";
-  }
-
-  async function request(action) {
-    if (busy) return;
-    busy = true;
-    document.querySelectorAll("button").forEach(b => b.disabled = true);
-    document.getElementById("message").textContent = "Please wait...";
-
-    try {
-      const response = await fetch(API, {
+    async function api(action, extra = {}) {
+      const response = await fetch(FUNCTION_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "apikey": PUBLISHABLE_KEY
         },
-        body: JSON.stringify({ token, action })
+        body: JSON.stringify({
+          token,
+          action,
+          ...extra
+        })
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Request failed.");
+      let result;
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error("The server returned an unexpected response. Please try again.");
       }
 
-      currentStatus = data.status;
-      render(data);
-      return data;
-    } finally {
-      busy = false;
-      document.querySelectorAll("button").forEach(b => b.disabled = false);
-      document.getElementById("message").textContent = "";
-    }
-  }
+      if (!response.ok) {
+        throw new Error(result.error || result.message || "Something went wrong. Please try again.");
+      }
 
-  function render(data) {
-    if (data.status === "confirmed") {
-      document.getElementById("role").textContent = data.role;
-      show("reveal");
-    } else if (data.status === "declined") {
-      show("declined");
-    } else if (data.status === "available") {
-      show("confirm");
-    } else {
-      document.getElementById("greeting").textContent =
-        `Hi, ${data.name}! I have something special to ask you.`;
-      show("welcome");
-    }
-  }
-
-  async function run(action) {
-    try {
-      await request(action);
-    } catch (error) {
-      document.getElementById("errorText").textContent =
-        error.message || "Something went wrong. Please try again.";
-      show("error");
-    }
-  }
-
-  document.getElementById("start").onclick = () => show("availability");
-  document.getElementById("yes").onclick = () => run("available");
-  document.getElementById("no").onclick = () => run("decline");
-  document.getElementById("confirmYes").onclick = () => run("confirm");
-  document.getElementById("reconsider").onclick = () => show("availability");
-  document.getElementById("decline").onclick = () => run("decline");
-  document.getElementById("retry").onclick = () => run("lookup");
-
-  async function init() {
-    if (!token) {
-      document.getElementById("errorText").textContent =
-        "This invitation link is missing its invitation token.";
-      show("error");
-      return;
+      return result;
     }
 
-    if (PROJECT_URL.includes("YOUR-PROJECT-REF") ||
-        PUBLISHABLE_KEY.includes("YOUR_SUPABASE")) {
-      document.getElementById("errorText").textContent =
-        "Please configure the Supabase project URL and publishable key.";
-      show("error");
-      return;
+    // ==========================================
+    // HELPERS
+    // ==========================================
+
+    function showPage() {
+      loadingEl.classList.add("hidden");
+      contentEl.classList.remove("hidden");
     }
 
-    await run("lookup");
-  }
+    function setFeedback(message = "") {
+      feedbackEl.textContent = message;
+    }
 
-  init();
-</script>
+    function setBusy(value) {
+      busy = value;
+      document.querySelectorAll("button").forEach(button => {
+        button.disabled = value;
+      });
+    }
+
+    function escapeHTML(value = "") {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function messageHTML(value = "") {
+      return String(value)
+        .trim()
+        .split(/\n\s*\n/)
+        .filter(Boolean)
+        .map(paragraph => `<p>${escapeHTML(paragraph).replace(/\n/g, "<br>")}</p>`)
+        .join("");
+    }
+
+    function setHeader(eyebrow, heading, intro) {
+      eyebrowEl.textContent = eyebrow;
+      headingEl.textContent = heading;
+      introEl.textContent = intro;
+    }
+
+    function render() {
+      if (!invitation) return;
+
+      setFeedback("");
+
+      switch (invitation.stage) {
+        case "name":
+          renderNameStage();
+          break;
+        case "availability":
+          renderAvailabilityStage();
+          break;
+        case "role_invitation":
+          renderRoleStage();
+          break;
+        case "arrangements":
+          renderArrangementsStage();
+          break;
+        case "complete":
+          renderCompleteStage();
+          break;
+        case "declined":
+          renderDeclinedStage();
+          break;
+        default:
+          renderErrorStage("We couldn't determine the next step of your invitation. Please contact the couple.");
+      }
+    }
+
+    // ==========================================
+    // STAGE 1: NAME VERIFICATION
+    // ==========================================
+
+    function renderNameStage() {
+      setHeader(
+        "A personal invitation",
+        "Before we begin…",
+        "This invitation was prepared especially for you. Please enter the name registered with your invitation."
+      );
+
+      stageContentEl.innerHTML = `
+        <form id="name-form">
+          <label class="field-label" for="guest-name">Your registered name</label>
+          <input
+            id="guest-name"
+            name="enteredName"
+            type="text"
+            maxlength="80"
+            autocomplete="name"
+            placeholder="Enter your name"
+            required
+          />
+          <p class="hint">Please enter your complete registered name. Capitalization and extra spaces won't matter.</p>
+          <div class="actions">
+            <button class="primary" type="submit">Continue</button>
+          </div>
+        </form>
+      `;
+
+      document.getElementById("name-form").addEventListener("submit", async event => {
+        event.preventDefault();
+        if (busy) return;
+
+        const enteredName = document.getElementById("guest-name").value.trim();
+
+        if (!enteredName) {
+          setFeedback("Please enter your registered name to continue.");
+          return;
+        }
+
+        await performAction("save_name", { enteredName });
+      });
+
+      setTimeout(() => document.getElementById("guest-name")?.focus(), 50);
+    }
+
+    // ==========================================
+    // STAGE 2: DATE AVAILABILITY
+    // ==========================================
+
+    function renderAvailabilityStage() {
+      setHeader(
+        "Save the date",
+        `Dear ${invitation.fullName || invitation.name},`,
+        "We have a very special day coming up, and we would love to know if you'll be there to celebrate with us."
+      );
+
+      stageContentEl.innerHTML = `
+        <div class="detail">
+          <strong>Our wedding day</strong>
+          <p>Thursday, June 8, 2028</p>
+        </div>
+        <p class="intro" style="margin-top:22px;margin-bottom:0;">
+          Will you be available to celebrate with us on this day?
+        </p>
+        <div class="actions">
+          <button class="primary" type="button" id="date-yes">Yes, I'll be there</button>
+          <button class="secondary" type="button" id="date-no">I'm unavailable</button>
+        </div>
+      `;
+
+      document.getElementById("date-yes").addEventListener("click", () => {
+        performAction("date_available");
+      });
+
+      document.getElementById("date-no").addEventListener("click", () => {
+        performAction("date_unavailable");
+      });
+    }
+
+    // ==========================================
+    // STAGE 3: ROLE INVITATION
+    // ==========================================
+
+    function renderRoleStage() {
+      const roleLabel = roleLabels[invitation.role] || invitation.role;
+
+      setHeader(
+        "A special place by our side",
+        `Dear ${invitation.fullName || invitation.name},`,
+        "There is something we'd love to ask you as we prepare for one of the most meaningful days of our lives."
+      );
+
+      const personal = invitation.personalizedMessage || "";
+      const general = invitation.roleMessage || "";
+
+      stageContentEl.innerHTML = `
+        <div class="role-pill">${escapeHTML(roleLabel)}</div>
+        <div class="letter">
+          ${messageHTML(personal)}
+          ${messageHTML(general)}
+        </div>
+        <p class="intro" style="margin-top:24px;margin-bottom:0;">
+          Will you accept this special role in our wedding?
+        </p>
+        <div class="actions">
+          <button class="primary" type="button" id="role-yes">With pleasure, yes!</button>
+          <button class="secondary" type="button" id="role-no">I’m sorry, I can’t</button>
+        </div>
+      `;
+
+      document.getElementById("role-yes").addEventListener("click", () => {
+        performAction("accept_role");
+      });
+
+      document.getElementById("role-no").addEventListener("click", () => {
+        performAction("decline_role");
+      });
+    }
+
+    // ==========================================
+    // STAGE 4: WEDDING DETAILS & ARRANGEMENTS
+    // ==========================================
+
+    function renderArrangementsStage() {
+      setHeader(
+        "A few lovely details",
+        "Let's talk about the day",
+        `We're so happy you're considering being part of our ${roleLabels[invitation.role] || "entourage"}. Here are a few details we'd like you to know.`
+      );
+
+      const isBridesmaid = invitation.role === "bridesmaid";
+
+      stageContentEl.innerHTML = `
+        ${isBridesmaid ? `
+          <div class="detail">
+            <strong>Bridesmaids' color palette</strong>
+            <p>These are a few of the colors we're considering for your dress or gown. Please treat them as a palette guide for now; more details and specific instructions will follow.</p>
+            <div class="palette" aria-label="Bridesmaids' color palette">
+              <div class="swatch">
+                <div class="swatch-color" style="background:#B96F59"></div>
+                <small>Terracotta</small>
+              </div>
+              <div class="swatch">
+                <div class="swatch-color" style="background:#B58B9A"></div>
+                <small>Mauve</small>
+              </div>
+              <div class="swatch">
+                <div class="swatch-color" style="background:#78815A"></div>
+                <small>Olive green</small>
+              </div>
+              <div class="swatch">
+                <div class="swatch-color" style="background:#91B8B3"></div>
+                <small>Aqua</small>
+              </div>
+              <div class="swatch">
+                <div class="swatch-color" style="background:#F2E8D8"></div>
+                <small>Warm ivory</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="details">
+            <div class="detail">
+              <strong>Hair &amp; makeup</strong>
+              <p>We will take care of your hair and makeup. You will just need to provide your own dress or gown.</p>
+            </div>
+          </div>
+        ` : `
+          <p class="intro" style="margin:0;">We’ll share more details about the day with you as we get closer to the wedding.</p>
+        `}
+
+        <p class="intro" style="margin-top:25px;margin-bottom:0;">
+          Are you comfortable with these arrangements?
+        </p>
+        <div class="actions">
+          <button class="primary" type="button" id="arrangements-yes">Yes, I'm comfortable</button>
+          <button class="secondary" type="button" id="arrangements-no">I’m sorry, I can’t</button>
+        </div>
+      `;
+
+      document.getElementById("arrangements-yes").addEventListener("click", () => {
+        performAction("accept_arrangements");
+      });
+
+      document.getElementById("arrangements-no").addEventListener("click", () => {
+        performAction("decline_arrangements");
+      });
+    }
+
+    // ==========================================
+    // FINAL SCREENS
+    // ==========================================
+
+    function renderCompleteStage() {
+      setHeader(
+        "With grateful hearts",
+        `Thank you, ${invitation.fullName || invitation.name}!`,
+        "We're so happy to have you as part of our wedding day. Your presence and support will mean so much to us."
+      );
+
+      stageContentEl.innerHTML = `
+        <div class="ornament"><span>♡</span></div>
+        <p class="intro">
+          More details about the celebration, attire, schedule, and preparations will be shared with you soon.
+          <br><br>
+          Until then, please save the date. We can't wait to celebrate with you!
+        </p>
+        <p class="date">June 8, 2028</p>
+      `;
+    }
+
+    function renderDeclinedStage() {
+      let message = "Thank you for letting us know. We completely understand, and we're grateful that you took the time to respond to our invitation. You'll always be special to us.";
+
+      if (invitation.declinedAt === "date_availability") {
+        message = "Thank you for letting us know. We completely understand that you may have other commitments. We're grateful to have you in our lives and hope to celebrate together another time.";
+      }
+
+      setHeader(
+        "With understanding",
+        "Thank you for your honesty",
+        message
+      );
+
+      stageContentEl.innerHTML = `
+        <div class="ornament"><span>♡</span></div>
+        <p class="intro">Sending you love and warm wishes, always.</p>
+      `;
+    }
+
+    function renderErrorStage(message) {
+      setHeader("A little hiccup", "Something went wrong", message);
+      stageContentEl.innerHTML = `
+        <div class="actions">
+          <button class="primary" type="button" onclick="window.location.reload()">Try again</button>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // ACTION HANDLER
+    // ==========================================
+
+    async function performAction(action, extra = {}) {
+      if (busy) return;
+
+      setBusy(true);
+      setFeedback("");
+
+      try {
+        const result = await api(action, extra);
+        invitation = result;
+        render();
+      } catch (error) {
+        setFeedback(error.message || "Something went wrong. Please try again.");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    // ==========================================
+    // INITIALIZE
+    // ==========================================
+
+    async function initialize() {
+      showPage();
+
+      if (!token) {
+        renderErrorStage("This invitation link is incomplete. Please use the unique link sent to you by the couple.");
+        return;
+      }
+
+      try {
+        invitation = await api("lookup");
+        render();
+      } catch (error) {
+        renderErrorStage(error.message || "We couldn't load your invitation. Please check your link and try again.");
+      }
+    }
+
+    initialize();
+  </script>
 </body>
 </html>
